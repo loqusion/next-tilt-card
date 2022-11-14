@@ -1,38 +1,82 @@
-.App {
-  text-align: center;
+.announcement-title {
+  font-size: 64px;
+  line-height: 72px;
+  margin: 0;
+  background: var(--text-gradient);
+  background-clip: text;
+  text-fill-color: transparent;
+  white-space: nowrap;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.announcement-subtitle {
+  --subtitle-gradient: linear-gradient(180deg, #555, #000);
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 16px;
+  background: var(--subtitle-gradient);
+  background-clip: text;
+  text-fill-color: transparent;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.announcement-subtext {
+  font-size: 1.5em;
+  line-height: 1.3em;
+  color: var(--accents-6);
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 80x;
+  --text-gradient: linear-gradient(180deg, #555, #000);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.announcement-subtext > p {
+  font-family: var(--font-space-grotesk);
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 1.6;
+  letter-spacing: -0.2px;
+  margin: 0;
+  max-width: 400px;
+  color: var(--accents-5);
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 44px;
+  padding: 0 16px;
+  border-radius: 9999px;
+  font-family: var(--font-space-grotesk);
+  font-size: 16px;
+  letter-spacing: -0.025em;
+  font-weight: 400;
+  background: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  border: 1px solid transparent;
+}
+
+.featured-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  gap: 64px;
+  padding: 32px;
 }
 
-.App-link {
-  color: #61dafb;
+.app-wrapper {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 32px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.app-wrapper > * {
+  width: 467px;
+  height: 680px;
 }

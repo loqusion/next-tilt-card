@@ -1,26 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { ReactComponent as NextLogo } from './next-logo.svg'
+import { ReactComponent as GeistIcon } from './geist-icon.svg'
+import './App.css'
+import TiltCard from './TiltCard'
 
-function App() {
+function PopulatedTiltCard() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <TiltCard>
+      <div className="featured-wrapper">
+        <NextLogo />
+        <div className="announcement-subtext">
+          <h2 className="announcement-title">Next.js 13</h2>
+          <span className="announcement-subtitle">By Vercel</span>
+          <p>
+            Bringing the power of full-stack
+            <span style={{ display: 'block' }} />
+            to the frontend.
+          </p>
+        </div>
+        <button className="button">
+          Get Started <GeistIcon />
+        </button>
+      </div>
+    </TiltCard>
+  )
 }
 
-export default App;
+export default function App() {
+  return (
+    <div className="app-wrapper">
+      <PopulatedTiltCard />
+    </div>
+  )
+}
