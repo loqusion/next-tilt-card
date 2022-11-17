@@ -1,11 +1,12 @@
+import React from 'react'
 import { ReactComponent as NextLogo } from './next-logo.svg'
 import { ReactComponent as GeistIcon } from './geist-icon.svg'
 import './App.css'
 import TiltCard from './TiltCard'
 
-function PopulatedTiltCard() {
+function PopulatedTiltCard(props: any) {
   return (
-    <TiltCard>
+    <TiltCard {...props}>
       <div className="featured-wrapper">
         <NextLogo />
         <div className="announcement-subtext">
@@ -25,10 +26,36 @@ function PopulatedTiltCard() {
   )
 }
 
+function Slider(props: React.ComponentProps<'input'>) {
+  return <input type="range" {...props} />
+}
+
 export default function App() {
+  const [x, setX] = React.useState(0)
+  const [y, setY] = React.useState(0)
+  const [angle, setAngle] = React.useState(0)
+
   return (
     <div className="app-wrapper">
-      <PopulatedTiltCard />
+      <PopulatedTiltCard rotateX={x} rotateY={y} rotateAngle={angle} />
+      <Slider
+        min="0"
+        max="1000"
+        value={x}
+        onChange={(ev) => setX(Number.parseInt(ev.target.value, 10))}
+      />
+      <Slider
+        min="0"
+        max="1000"
+        value={y}
+        onChange={(ev) => setY(Number.parseInt(ev.target.value, 10))}
+      />
+      <Slider
+        min="0"
+        max="180"
+        value={angle}
+        onChange={(ev) => setAngle(Number.parseInt(ev.target.value, 10))}
+      />
     </div>
   )
 }
