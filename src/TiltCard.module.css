@@ -20,7 +20,7 @@
   z-index: 2;
 }
 
-.tilt-card-root {
+.root {
   position: relative;
 
   display: flex;

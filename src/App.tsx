@@ -1,24 +1,24 @@
 import React from 'react'
 import { ReactComponent as NextLogo } from './next-logo.svg'
 import { ReactComponent as GeistIcon } from './geist-icon.svg'
-import './App.css'
+import styles from './App.module.css'
 import TiltCard from './TiltCard'
 
 function PopulatedTiltCard(props: any) {
   return (
     <TiltCard {...props}>
-      <div className="featured-wrapper">
+      <div className={styles.featuredWrapper}>
         <NextLogo />
-        <div className="announcement-subtext">
-          <h2 className="announcement-title">Next.js 13</h2>
-          <span className="announcement-subtitle">By Vercel</span>
+        <div className={styles.announcementSubtext}>
+          <h2 className={styles.announcementTitle}>Next.js 13</h2>
+          <span className={styles.announcementSubtitle}>By Vercel</span>
           <p>
             Bringing the power of full-stack
             <span style={{ display: 'block' }} />
             to the frontend.
           </p>
         </div>
-        <button className="button">
+        <button className={styles.button}>
           Get Started <GeistIcon />
         </button>
       </div>
@@ -36,7 +36,7 @@ export default function App() {
   const [angle, setAngle] = React.useState(0)
 
   return (
-    <div className="app-wrapper">
+    <div className={styles.appWrapper}>
       <PopulatedTiltCard rotateX={x} rotateY={y} rotateAngle={angle} />
       <Slider
         min="0"

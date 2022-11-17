@@ -1,4 +1,4 @@
-import './TiltCard.css'
+import styles from './TiltCard.module.css'
 import useHover from './use-hover'
 import useContainedMousePosition from './use-mouse-position'
 
@@ -40,15 +40,15 @@ export default function TiltCard({
 
   return (
     <a
-      className="tilt-card-root"
+      className={styles.root}
       style={rootStyle}
       href={href}
       {...mousePositionParams}
       {...hoverParams}
     >
-      <div className="blob" aria-hidden={true} />
+      <div className={styles.blob} aria-hidden={true} />
       {children}
-      <div className="glow" aria-hidden={true} />
+      <div className={styles.glow} aria-hidden={true} />
     </a>
   )
 }
