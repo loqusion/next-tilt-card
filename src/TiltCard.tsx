@@ -1,12 +1,19 @@
+import React from 'react'
 import styles from './TiltCard.module.css'
 import useHover from './use-hover'
 import useContainedMousePosition from './use-contained-mouse-position'
+import useBoundingClientRect from './use-bounding-client-rect'
+
+function scaleCoord(c1: number, c2: number, scale: number) {
+  return (c1 - c2) * scale + c2
+}
 
 type AdditionalProps = {
   rotateX?: number
   rotateY?: number
   rotateAngle?: number
   testView?: boolean
+  showBlob?: boolean
 }
 
 export default function TiltCard({
@@ -14,21 +21,46 @@ export default function TiltCard({
   rotateX,
   rotateY,
   rotateAngle,
-  testView,
+  testView = false,
+  showBlob = true,
   children,
 }: React.PropsWithChildren<{ href?: string } & AdditionalProps>) {
   const [position, mousePositionProps] = useContainedMousePosition()
   const [isHover, hoverProps] = useHover()
+  const rootRef = React.useRef<HTMLAnchorElement>(null)
+  const boundingClientRect = useBoundingClientRect(rootRef)
 
+  const centerPosition = {
+    x: boundingClientRect?.width! / 2,
+    y: boundingClientRect?.height! / 2,
+  }
+  const relativeMousePosition = {
+    x: position.x! - centerPosition.x,
+    y: position.y! - centerPosition.y,
+  }
+  const maxLength = Math.max(
+    boundingClientRect?.width!,
+    boundingClientRect?.height!
+  )
+  const minLength = Math.min(
+    boundingClientRect?.width!,
+    boundingClientRect?.height!
+  )
+  const ratio = maxLength / minLength
+
+  const scale = 2
   const bgPosition = {
-    ...position,
-    /* x: 629.4000091552734, */
-    /* y: 590.8333740234375, */
+    x: scaleCoord(position.x!, centerPosition.x, scale),
+    y: scaleCoord(position.y!, centerPosition.y, scale),
   }
   const rotate = {
-    x: testView ? rotateX : position.x,
-    y: testView ? rotateY : position.y,
-    a: testView ? rotateAngle : 5,
+    x: testView ? rotateX : relativeMousePosition.y,
+    y: testView ? rotateY : -relativeMousePosition.x,
+    a: testView
+      ? rotateAngle
+      : (Math.hypot(relativeMousePosition.x * ratio, relativeMousePosition.y) *
+          6) /
+        centerPosition.y,
   }
 
   const rootStyle = {
@@ -45,13 +77,16 @@ export default function TiltCard({
 
   return (
     <a
+      ref={rootRef}
       className={styles.root}
       style={rootStyle}
       href={href}
       {...mousePositionProps}
       {...hoverProps}
     >
-      {!testView && <div className={styles.blob} aria-hidden={true} />}
+      {showBlob && !testView && (
+        <div className={styles.blob} aria-hidden={true} />
+      )}
       {children}
       <div className={styles.glow} aria-hidden={true} />
     </a>

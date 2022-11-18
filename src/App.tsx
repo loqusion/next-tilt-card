@@ -50,6 +50,7 @@ export default function App() {
   const [angle, setAngle] = React.useState(0)
   const [directionAngle, setDirectionAngle] = React.useState(0)
   const [shouldShowTestView, setShouldEnableTestView] = React.useState(false)
+  const [showBlob, setShowBlob] = React.useState(true)
 
   // (hypotenuse = 1)
   // SOH: sin(a) = y/1 = y
@@ -65,6 +66,7 @@ export default function App() {
           rotateY={y}
           rotateAngle={angle}
           testView={shouldShowTestView}
+          showBlob={showBlob}
         />
         <label>
           Test view
@@ -72,6 +74,18 @@ export default function App() {
             type="checkbox"
             checked={shouldShowTestView}
             onChange={() => setShouldEnableTestView((x) => !x)}
+            style={{ marginLeft: '6px' }}
+          />
+        </label>
+        <label
+          className={styles.showBlob}
+          style={{ visibility: shouldShowTestView ? 'hidden' : 'visible' }}
+        >
+          Show blob
+          <input
+            type="checkbox"
+            checked={showBlob}
+            onChange={() => setShowBlob((x) => !x)}
             style={{ marginLeft: '6px' }}
           />
         </label>
