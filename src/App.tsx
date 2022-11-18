@@ -49,6 +49,7 @@ function SliderContainer({
 export default function App() {
   const [angle, setAngle] = React.useState(0)
   const [directionAngle, setDirectionAngle] = React.useState(0)
+  const [shouldShowTestView, setShouldEnableTestView] = React.useState(false)
 
   // (hypotenuse = 1)
   // SOH: sin(a) = y/1 = y
@@ -59,8 +60,25 @@ export default function App() {
   return (
     <div className={styles.appWrapper}>
       <div className={styles.yetAnotherWrapper}>
-        <PopulatedTiltCard rotateX={x} rotateY={y} rotateAngle={angle} />
-        <div className={styles.controls}>
+        <PopulatedTiltCard
+          rotateX={x}
+          rotateY={y}
+          rotateAngle={angle}
+          testView={shouldShowTestView}
+        />
+        <label>
+          Test view
+          <input
+            type="checkbox"
+            checked={shouldShowTestView}
+            onChange={() => setShouldEnableTestView((x) => !x)}
+            style={{ marginLeft: '6px' }}
+          />
+        </label>
+        <div
+          className={styles.controls}
+          style={{ visibility: shouldShowTestView ? 'visible' : 'hidden' }}
+        >
           <SliderContainer title="Angle:">
             <span>{angle}°</span>
             <Slider

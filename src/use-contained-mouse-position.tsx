@@ -19,12 +19,16 @@ export default function useContainedMousePosition(): [
   })
   React.useDebugValue(position)
 
-  const onMouseMove: React.MouseEventHandler = React.useCallback(
-    ({ nativeEvent: ev }) => {
-      setPosition({ x: ev.offsetX, y: ev.offsetY })
-    },
-    []
-  )
+  const onMouseMove: React.MouseEventHandler = React.useCallback((ev) => {
+    const nev = ev.nativeEvent
+    // slow!! see https://gist.github.com/paulirish/5d52fb081b3570c81e3a
+    const bound = ev.currentTarget.getBoundingClientRect()
+    const position = {
+      x: nev.clientX - bound.left,
+      y: nev.clientY - bound.top,
+    }
+    setPosition(position)
+  }, [])
 
   return [position, { onMouseMove }]
 }
