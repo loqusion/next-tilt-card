@@ -104,6 +104,11 @@
   gap: 16px;
 }
 
+.yetAnotherWrapper > *:first-child {
+  width: 467px;
+  height: 680px;
+}
+
 .appWrapper {
   position: absolute;
   inset: 0;
@@ -113,9 +118,4 @@
   justify-content: center;
   align-items: center;
   gap: 16px;
-}
-
-.appWrapper > *:first-child {
-  width: 467px;
-  height: 680px;
 }
