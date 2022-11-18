@@ -1,32 +1,28 @@
 import React from 'react'
 import { ReactComponent as NextLogo } from './next-logo.svg'
-import { ReactComponent as GeistIcon } from './geist-icon.svg'
 import styles from './App.module.css'
-import TiltCard from './TiltCard'
+import TiltCard, { TiltCardProps } from './TiltCard'
 
 function degToRad(deg: number): number {
   return (deg * Math.PI) / 180
 }
 
-function PopulatedTiltCard(props: any) {
+function PopulatedTiltCard(props: Partial<TiltCardProps>) {
   return (
-    <TiltCard {...props}>
-      <div className={styles.featuredWrapper}>
-        <NextLogo />
-        <div className={styles.announcementSubtext}>
-          <h2 className={styles.announcementTitle}>Next.js 13</h2>
-          <span className={styles.announcementSubtitle}>By Vercel</span>
-          <p>
-            Bringing the power of full-stack
-            <span style={{ display: 'block' }} />
-            to the frontend.
-          </p>
-        </div>
-        <button className={styles.button}>
-          Get Started <GeistIcon />
-        </button>
-      </div>
-    </TiltCard>
+    <TiltCard
+      {...props}
+      icon={<NextLogo />}
+      title="Next.js 13"
+      subTitle="By Vercel"
+      paragraph={
+        <>
+          Bringing the power of full-stack
+          <span style={{ display: 'block' }} />
+          to the frontend.
+        </>
+      }
+      buttonText="Get Started"
+    />
   )
 }
 
@@ -49,7 +45,7 @@ function SliderContainer({
 export default function App() {
   const [angle, setAngle] = React.useState(0)
   const [directionAngle, setDirectionAngle] = React.useState(0)
-  const [shouldShowTestView, setShouldEnableTestView] = React.useState(false)
+  const [showTestView, setShouldEnableTestView] = React.useState(false)
   const [showBlob, setShowBlob] = React.useState(true)
 
   // (hypotenuse = 1)
@@ -62,24 +58,29 @@ export default function App() {
     <div className={styles.appWrapper}>
       <div className={styles.yetAnotherWrapper}>
         <PopulatedTiltCard
-          rotateX={x}
-          rotateY={y}
-          rotateAngle={angle}
-          testView={shouldShowTestView}
+          testValues={
+            showTestView
+              ? {
+                  rotateX: x,
+                  rotateY: y,
+                  rotateAngle: angle,
+                }
+              : undefined
+          }
           showBlob={showBlob}
         />
         <label>
           Test view
           <input
             type="checkbox"
-            checked={shouldShowTestView}
+            checked={showTestView}
             onChange={() => setShouldEnableTestView((x) => !x)}
             style={{ marginLeft: '6px' }}
           />
         </label>
         <label
           className={styles.showBlob}
-          style={{ visibility: shouldShowTestView ? 'hidden' : 'visible' }}
+          style={{ visibility: showTestView ? 'hidden' : 'visible' }}
         >
           Show blob
           <input
@@ -91,7 +92,7 @@ export default function App() {
         </label>
         <div
           className={styles.controls}
-          style={{ visibility: shouldShowTestView ? 'visible' : 'hidden' }}
+          style={{ visibility: showTestView ? 'visible' : 'hidden' }}
         >
           <SliderContainer title="Angle:">
             <span>{angle}°</span>
