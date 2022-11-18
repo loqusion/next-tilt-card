@@ -17,8 +17,8 @@ export default function TiltCard({
   testView,
   children,
 }: React.PropsWithChildren<{ href?: string } & AdditionalProps>) {
-  const [position, mousePositionParams] = useContainedMousePosition()
-  const [isHover, hoverParams] = useHover()
+  const [position, mousePositionProps] = useContainedMousePosition()
+  const [isHover, hoverProps] = useHover()
 
   const bgPosition = {
     ...position,
@@ -48,8 +48,8 @@ export default function TiltCard({
       className={styles.root}
       style={rootStyle}
       href={href}
-      {...mousePositionParams}
-      {...hoverParams}
+      {...mousePositionProps}
+      {...hoverProps}
     >
       {!testView && <div className={styles.blob} aria-hidden={true} />}
       {children}
