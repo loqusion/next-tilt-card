@@ -66,6 +66,14 @@
   padding: 32px;
 }
 
+.sliderContainer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+}
+
 .appWrapper {
   position: absolute;
   inset: 0;
@@ -74,7 +82,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 16px;
+  gap: 8px;
 }
 
 .appWrapper > *:first-child {

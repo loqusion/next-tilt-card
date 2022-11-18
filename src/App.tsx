@@ -4,6 +4,10 @@ import { ReactComponent as GeistIcon } from './geist-icon.svg'
 import styles from './App.module.css'
 import TiltCard from './TiltCard'
 
+function degToRad(deg: number): number {
+  return deg * Math.PI / 180
+}
+
 function PopulatedTiltCard(props: any) {
   return (
     <TiltCard {...props}>
@@ -31,31 +35,38 @@ function Slider(props: React.ComponentProps<'input'>) {
 }
 
 export default function App() {
-  const [x, setX] = React.useState(0)
-  const [y, setY] = React.useState(0)
   const [angle, setAngle] = React.useState(0)
+  const [directionAngle, setDirectionAngle] = React.useState(0)
+
+  // (hypotenuse = 1)
+  // SOH: sin(a) = y/1 = y
+  // CAH: cos(a) = x/1 = x
+  const x = Math.cos(degToRad(directionAngle))
+  const y = Math.sin(degToRad(directionAngle))
 
   return (
     <div className={styles.appWrapper}>
       <PopulatedTiltCard rotateX={x} rotateY={y} rotateAngle={angle} />
-      <Slider
-        min="0"
-        max="1000"
-        value={x}
-        onChange={(ev) => setX(Number.parseInt(ev.target.value, 10))}
-      />
-      <Slider
-        min="0"
-        max="1000"
-        value={y}
-        onChange={(ev) => setY(Number.parseInt(ev.target.value, 10))}
-      />
-      <Slider
-        min="0"
-        max="180"
-        value={angle}
-        onChange={(ev) => setAngle(Number.parseInt(ev.target.value, 10))}
-      />
+      <div>
+        <div className={styles.sliderContainer}>
+          <span>{angle}°</span>
+          <Slider
+            min="0"
+            max="180"
+            value={angle}
+            onChange={(ev) => setAngle(Number.parseInt(ev.target.value, 10))}
+            />
+        </div>
+        <div className={styles.sliderContainer}>
+          <span>{directionAngle}°</span>
+          <Slider
+            min="0"
+            max="360"
+            value={directionAngle}
+            onChange={(ev) => setDirectionAngle(Number.parseInt(ev.target.value, 10))}
+            />
+        </div>
+      </div>
     </div>
   )
 }

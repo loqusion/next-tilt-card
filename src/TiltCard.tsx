@@ -1,6 +1,6 @@
 import styles from './TiltCard.module.css'
 import useHover from './use-hover'
-import useContainedMousePosition from './use-mouse-position'
+import useContainedMousePosition from './use-contained-mouse-position'
 
 type AdditionalProps = {
   rotateX?: number
