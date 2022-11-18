@@ -33,9 +33,10 @@ export default function TiltCard({
   const rootStyle = {
     '--glow-bg': `radial-gradient( circle at ${bgPosition.x}px ${bgPosition.y}px, #0141FF55, #0000000f )`,
     '--glow-opacity': isHover ? 0.3 : 0,
-    transform: isHover || isTest
-      ? `scale3d(1.01, 1.01, 1.01) rotate3d(${rotate.x}, ${rotate.y}, 0, ${rotate.a}deg)`
-      : undefined,
+    transform:
+      isHover || isTest
+        ? `scale3d(1.01, 1.01, 1.01) rotate3d(${rotate.x}, ${rotate.y}, 0, ${rotate.a}deg)`
+        : undefined,
   } as React.CSSProperties
 
   return (
