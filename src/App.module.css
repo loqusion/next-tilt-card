@@ -30,7 +30,13 @@
   text-align: end;
 }
 
-.controls {
+.tiltCardsWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  padding: 8px;
+  perspective: 1500px;
 }
 
 .yetAnotherWrapper {
@@ -40,12 +46,6 @@
   justify-content: center;
   align-items: center;
   gap: 16px;
-  perspective: 1500px;
-}
-
-.yetAnotherWrapper > *:first-child {
-  width: 467px;
-  height: 680px;
 }
 
 .appWrapper {

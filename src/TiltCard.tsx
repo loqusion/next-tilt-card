@@ -19,6 +19,7 @@ export type TiltCardProps = AdditionalProps & {
   subTitle?: string
   paragraph: React.ReactNode
   buttonText: string
+  accentColor?: string
 }
 
 export default function TiltCard({
@@ -28,11 +29,12 @@ export default function TiltCard({
   subTitle,
   paragraph,
   buttonText,
+  accentColor,
   testValues,
   showBlob = true,
 }: TiltCardProps) {
   const rootRef = React.useRef<HTMLAnchorElement>(null)
-  const rootStyle = useTiltStyle(rootRef)
+  const rootStyle = useTiltStyle(rootRef, accentColor)
 
   if (testValues) {
     const { rotateX, rotateY, rotateAngle } = testValues
@@ -43,10 +45,18 @@ export default function TiltCard({
     rootStyle.transform = `scale3d(1.01, 1.01, 1.01) rotate3d(${rotateX}, ${rotateY}, 0, ${rotateAngle}deg)`
   }
 
+  const additionalBlobStyles: React.CSSProperties = {
+    background: `radial-gradient(circle, ${accentColor} 0, rgba(161, 252, 70, 0) 71%)`,
+  }
+
   return (
     <a ref={rootRef} className={styles.root} style={rootStyle} href={href}>
       {showBlob && !testValues && (
-        <div className={styles.blob} aria-hidden={true} />
+        <div
+          className={styles.blob}
+          style={additionalBlobStyles}
+          aria-hidden={true}
+        />
       )}
 
       <div className={styles.featuredWrapper}>

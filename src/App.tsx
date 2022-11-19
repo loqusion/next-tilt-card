@@ -1,29 +1,12 @@
 import React from 'react'
 import { ReactComponent as NextLogo } from './next-logo.svg'
+import { ReactComponent as TurbopackLogo } from './turbopack.svg'
+import { ReactComponent as VercelLogo } from './vercel-logo.svg'
 import styles from './App.module.css'
 import TiltCard, { TiltCardProps } from './TiltCard'
 
 function degToRad(deg: number): number {
   return (deg * Math.PI) / 180
-}
-
-function PopulatedTiltCard(props: Partial<TiltCardProps>) {
-  return (
-    <TiltCard
-      {...props}
-      icon={<NextLogo />}
-      title="Next.js 13"
-      subTitle="By Vercel"
-      paragraph={
-        <>
-          Bringing the power of full-stack
-          <span style={{ display: 'block' }} />
-          to the frontend.
-        </>
-      }
-      buttonText="Get Started"
-    />
-  )
 }
 
 function Slider(props: React.ComponentProps<'input'>) {
@@ -42,6 +25,46 @@ function SliderContainer({
   )
 }
 
+const nextCardProps: TiltCardProps = {
+  icon: <NextLogo />,
+  title: 'Next.js 13',
+  subTitle: 'By Vercel',
+  paragraph: (
+    <>
+      Bringing the power of full-stack
+      <span style={{ display: 'block' }} />
+      to the frontend.
+    </>
+  ),
+  buttonText: 'Get Started',
+  href: 'https://nextjs.org/',
+  accentColor: '#0141ff',
+}
+
+const turboCardProps: TiltCardProps = {
+  icon: <TurbopackLogo />,
+  title: 'Turbopack',
+  paragraph: (
+    <>
+      Introducing the successor to
+      <span style={{ display: 'block' }} />
+      Webpack, written in Rust.
+    </>
+  ),
+  buttonText: 'Try in Next.js 13',
+  href: 'https://vercel.com/blog/turbopack',
+  accentColor: '#ba1ee4',
+}
+
+const vercelCardProps: TiltCardProps = {
+  icon: <VercelLogo />,
+  title: 'Vercel',
+  paragraph: <>The native Next.js platform.</>,
+  buttonText: 'Deploy Now',
+  href: 'https://vercel.com/',
+  accentColor: '#ffffff',
+}
+
 export default function App() {
   const [angle, setAngle] = React.useState(0)
   const [directionAngle, setDirectionAngle] = React.useState(0)
@@ -54,21 +77,30 @@ export default function App() {
   const x = Math.cos(degToRad(directionAngle))
   const y = Math.sin(degToRad(directionAngle))
 
+  const tiltCards = [nextCardProps, turboCardProps, vercelCardProps].map(
+    (props) => (
+      <TiltCard
+        key={props.title}
+        {...props}
+        showBlob={showBlob}
+        testValues={
+          showTestView
+            ? {
+                rotateX: x,
+                rotateY: y,
+                rotateAngle: angle,
+              }
+            : undefined
+        }
+      />
+    )
+  )
+
   return (
     <div className={styles.appWrapper}>
       <div className={styles.yetAnotherWrapper}>
-        <PopulatedTiltCard
-          testValues={
-            showTestView
-              ? {
-                  rotateX: x,
-                  rotateY: y,
-                  rotateAngle: angle,
-                }
-              : undefined
-          }
-          showBlob={showBlob}
-        />
+        <div className={styles.tiltCardsWrapper}>{tiltCards}</div>
+
         <label>
           Test view
           <input

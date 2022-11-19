@@ -6,7 +6,10 @@ function scaleCoord(c1: number, c2: number, scale: number) {
   return (c1 - c2) * scale + c2
 }
 
-export default function useTiltStyle(ref: React.RefObject<HTMLElement>) {
+export default function useTiltStyle(
+  ref: React.RefObject<HTMLElement>,
+  accentColor = '#ffffff'
+) {
   const isHover = useHover(ref)
   const position = useContainedMousePosition(ref)
   const boundingClientRect = useBoundingClientRect(ref)
@@ -44,7 +47,7 @@ export default function useTiltStyle(ref: React.RefObject<HTMLElement>) {
   }
 
   const style = {
-    '--glow-bg': `radial-gradient( circle at ${bgPosition.x}px ${bgPosition.y}px, #0141FF55, #0000000f )`,
+    '--glow-bg': `radial-gradient( circle at ${bgPosition.x}px ${bgPosition.y}px, ${accentColor}55, #0000000f )`,
     // '--glow-clip-path': testView
     //   ? `circle(50px at ${bgPosition.x}px ${bgPosition.y}px)`
     //   : undefined,
