@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './TiltCard.module.css'
-import useTiltStyle from './hooks/use-tilt-style'
+import useTiltStyle from './use-tilt-style'
 import { ReactComponent as GeistIcon } from './geist-icon.svg'
 
 type AdditionalProps = {
@@ -29,7 +29,7 @@ export default function TiltCard({
   subTitle,
   paragraph,
   buttonText,
-  accentColor,
+  accentColor = '#ffffff',
   testValues,
   showBlob = true,
 }: TiltCardProps) {
@@ -38,10 +38,6 @@ export default function TiltCard({
 
   if (testValues) {
     const { rotateX, rotateY, rotateAngle } = testValues
-    // rootStyle['--glow-clip-path'] = `circle(50px at ${bgPosition.x}px ${bgPosition.y}px)`
-    // rootStyle[
-    //   '--glow-bg'
-    // ] = `radial-gradient( circle at ${bgPosition.x}px ${bgPosition.y}px, #0141FF55, #0000000f )`
     rootStyle.transform = `scale3d(1.01, 1.01, 1.01) rotate3d(${rotateX}, ${rotateY}, 0, ${rotateAngle}deg)`
   }
 

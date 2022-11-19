@@ -1,6 +1,5 @@
-import useBoundingClientRect from './use-bounding-client-rect'
-import useContainedMousePosition from './use-contained-mouse-position'
-import useHover from './use-hover'
+import React from 'react'
+import useMouse from '@react-hook/mouse-position'
 
 function scaleCoord(c1: number, c2: number, scale: number) {
   return (c1 - c2) * scale + c2
@@ -8,28 +7,21 @@ function scaleCoord(c1: number, c2: number, scale: number) {
 
 export default function useTiltStyle(
   ref: React.RefObject<HTMLElement>,
-  accentColor = '#ffffff'
+  accentColor: string
 ) {
-  const isHover = useHover(ref)
-  const position = useContainedMousePosition(ref)
-  const boundingClientRect = useBoundingClientRect(ref)
+  const position = useMouse(ref)
+  const { isOver, elementWidth, elementHeight } = position
 
   const centerPosition = {
-    x: boundingClientRect?.width! / 2,
-    y: boundingClientRect?.height! / 2,
+    x: elementWidth! / 2,
+    y: elementHeight! / 2,
   }
   const relativeMousePosition = {
     x: position.x! - centerPosition.x,
     y: position.y! - centerPosition.y,
   }
-  const maxLength = Math.max(
-    boundingClientRect?.width!,
-    boundingClientRect?.height!
-  )
-  const minLength = Math.min(
-    boundingClientRect?.width!,
-    boundingClientRect?.height!
-  )
+  const maxLength = Math.max(elementWidth!, elementHeight!)
+  const minLength = Math.min(elementWidth!, elementHeight!)
   const ratio = maxLength / minLength
 
   const scale = 2
@@ -48,13 +40,9 @@ export default function useTiltStyle(
 
   const style = {
     '--glow-bg': `radial-gradient( circle at ${bgPosition.x}px ${bgPosition.y}px, ${accentColor}55, #0000000f )`,
-    // '--glow-clip-path': testView
-    //   ? `circle(50px at ${bgPosition.x}px ${bgPosition.y}px)`
-    //   : undefined,
-    '--glow-opacity': isHover ? 0.3 : 0,
-    transform: isHover
-      ? //|| testView
-        `scale3d(1.01, 1.01, 1.01) rotate3d(${rotate.x}, ${rotate.y}, 0, ${rotate.a}deg)`
+    '--glow-opacity': isOver ? 0.3 : 0,
+    transform: isOver
+      ? `scale3d(1.01, 1.01, 1.01) rotate3d(${rotate.x}, ${rotate.y}, 0, ${rotate.a}deg)`
       : undefined,
   } as React.CSSProperties
 

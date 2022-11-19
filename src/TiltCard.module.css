@@ -1,7 +1,6 @@
 .blob {
   width: 350px;
   height: 350px;
-  background: radial-gradient(circle, #0141ff 0, rgba(161, 252, 70, 0) 71%);
   position: absolute;
   inset: 0 0 auto;
   margin: 0 auto;
@@ -81,7 +80,6 @@
 .glow {
   position: absolute;
   inset: 0;
-  clip-path: var(--glow-clip-path);
   background-image: var(--glow-bg);
   opacity: var(--glow-opacity);
   transition: opacity 0.3s ease;
@@ -108,9 +106,4 @@
   overflow: hidden;
   transition: transform 0.3s ease-out;
   will-change: transform;
-}
-
-.root * {
-  /* Required for correct mouse position detection */
-  pointer-events: none;
 }
